@@ -14,16 +14,15 @@ export const AddMovie = () => {
                 .then(response => response.json())
                 .then(data => {
                     const result = data.results;
-                    result && result.map((value: Result) => setresults([...results, {
+                    result && setresults(result.map((value: Result) => ({
                         id: value.id,
                         title: value.title,
                         overview: value.overview,
                         release_date: value.release_date,
-                    }]))
+                    })))
                 })
             : setresults([])
     }
-
     return (
         <div className="container">
             <input
