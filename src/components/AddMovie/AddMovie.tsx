@@ -20,8 +20,7 @@ export const AddMovie = () => {
                         overview: value.overview,
                         release_date: value.release_date,
                     })))
-                })
-            : setresults([])
+                }) : setresults([])
     }
     return (
         <div className="container">
@@ -33,7 +32,11 @@ export const AddMovie = () => {
             />
             <div className="movie">
                 {results.length > 0 && results.map((value: Result, index: number) => (
-                    <div key={index} className="item"><h4>{value.title}</h4></div>
+                    <div key={index} className="movie-card">
+                        <h2>{value.title}</h2>
+                        <p>{value.overview}</p>
+                        <p>{JSON.stringify(value.release_date).substring(1, 5)}</p>
+                    </div>
                 ))}
             </div>
         </div>
