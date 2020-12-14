@@ -15,16 +15,16 @@ function App() {
     <Router>
       <Header />
       <Switch>
+        <Route exact path='/'>
+          <MovieList />
+        </Route>
+
         <Route path='/addmovie'>
           <AddMovie />
         </Route>
 
         <Route path='/watched'>
           <Watched />
-        </Route>
-
-        <Route path='/'>
-          <MovieList />
         </Route>
       </Switch>
     </Router>
