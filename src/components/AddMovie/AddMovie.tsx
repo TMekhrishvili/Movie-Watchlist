@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import './addMovie.css';
-import { Result } from '../helpers/types';
+import { Result } from '../../helpers/types';
 
 export const AddMovie = () => {
-    const [state, setstate] = useState<string>("");
+    // states
     const [results, setresults] = useState<Result[]>([]);
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
-        setstate(e.currentTarget.value);
         const value = e.currentTarget.value;
         value.length > 0 ?
             fetch(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&page=1&include_adult=false&query=${value}`)
@@ -23,11 +23,11 @@ export const AddMovie = () => {
                 })
             : setresults([])
     }
+
     return (
         <div className="container">
             <input
                 type="text"
-                value={state}
                 className="input"
                 onChange={handleChange}
                 placeholder="Search movie"
