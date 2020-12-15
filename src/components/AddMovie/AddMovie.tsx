@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './addMovie.css';
 import { Result } from '../../helpers/types';
+import { GlobalContext } from '../../context/GlobalState';
+
 
 export const AddMovie = () => {
     // states
     const [results, setresults] = useState<Result[]>([]);
+
+    const context = useContext(GlobalContext);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
@@ -19,6 +23,7 @@ export const AddMovie = () => {
                         title: value.title,
                         overview: value.overview,
                         release_date: value.release_date,
+                        poster_path: value.poster_path,
                     })))
                 }) : setresults([])
     }
@@ -31,13 +36,18 @@ export const AddMovie = () => {
                 placeholder="Search movie"
             />
             <div className="movie">
-                {results.length > 0 && results.map((value: Result, index: number) => (
-                    <div key={index} className="movie-card">
-                        <h2>{value.title}</h2>
-                        <p>{value.overview}</p>
-                        <p>{JSON.stringify(value.release_date).substring(1, 5)}</p>
-                    </div>
-                ))}
+                {results.length > 0 && results.map((value: Result, index: number) => {
+                    const imageUrl = `http://image.tmdb.org/t/p/w200${value.poster_path}`
+                    return (
+                        <div key={index} className="movie-card">
+                            <h2>{value.title}</h2>
+                            <img src={imageUrl} alt={value.title} />
+                            <p>{value.overview}</p>
+                            <p>{value.release_date && JSON.stringify(value.release_date).substring(1, 5)}</p>
+                            <button onClick={() => { context.addMovie(value) }}>Watch Later</button>
+                        </div>
+                    )
+                })}
             </div>
         </div>
     )
