@@ -13,19 +13,18 @@ export const AddMovie = () => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
         const value = e.currentTarget.value;
-        value.length > 0 ?
-            fetch(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&page=1&include_adult=false&query=${value}`)
-                .then(response => response.json())
-                .then(data => {
-                    const result = data.results;
-                    result && setresults(result.map((value: Result) => ({
-                        id: value.id,
-                        title: value.title,
-                        overview: value.overview,
-                        release_date: value.release_date,
-                        poster_path: value.poster_path,
-                    })))
-                }) : setresults([])
+        fetch(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&page=1&include_adult=false&query=${value.length > 0 ? value : ""}`)
+            .then(response => response.json())
+            .then(data => {
+                const result = data.results;
+                result && setresults(result.map((value: Result) => ({
+                    id: value.id,
+                    title: value.title,
+                    overview: value.overview,
+                    release_date: value.release_date,
+                    poster_path: value.poster_path,
+                })))
+            })
     }
     return (
         <div className="container">

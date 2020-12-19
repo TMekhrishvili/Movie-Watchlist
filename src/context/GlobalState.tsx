@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useReducer, useState } from 'react';
 import { Result, initialStateType } from '../helpers/types';
 import AppReducer from './AppReducer';
 
@@ -16,7 +16,7 @@ export const GlobalProvider = (props: any) => {
         dispatch({ type: 'ADD_MOVIE', payload: movie });
     }
     return (
-        <GlobalContext.Provider value={{ watchLater: state.watchLater, watched: state.watched, addMovie, }}>
+        <GlobalContext.Provider value={{ watchLater: state.watchLater, watched: state.watched, addMovie }}>
             { props.children}
         </GlobalContext.Provider>
     )
